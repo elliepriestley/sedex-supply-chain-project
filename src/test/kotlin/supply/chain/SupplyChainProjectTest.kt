@@ -49,4 +49,12 @@ class SupplyChainProjectTest {
         assertThat(request, hasBody("http4k is cool").and(hasQuery("a", "b")))
     }
 
+    @Test
+    fun `Given that an admin user at a top level org makes a call to suppliers endpoint with the parameter direct, they are given list of direct suppliers`() {
+        /// create test
+    }
+
+
+
+
 }
