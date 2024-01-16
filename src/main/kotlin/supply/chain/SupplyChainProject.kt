@@ -9,10 +9,14 @@ import org.http4k.core.Status.Companion.OK
 import org.http4k.core.then
 import org.http4k.core.with
 import org.http4k.filter.DebuggingFilters.PrintRequest
+import org.http4k.lens.Query
+import org.http4k.lens.string
 import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.server.SunHttp
 import org.http4k.server.asServer
+
+val optionalQuery = Query.string().optional("type")
 
 val app: HttpHandler = routes(
     "/ping" bind GET to {
@@ -20,6 +24,7 @@ val app: HttpHandler = routes(
     },
 
     "/suppliers" bind GET to {request ->
+        val type: String? = optionalQuery(request)
         Response(OK).body("Suppliers go here")
     }
 )
