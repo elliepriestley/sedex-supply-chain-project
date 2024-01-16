@@ -19,12 +19,8 @@ val app: HttpHandler = routes(
         Response(OK).body("pong")
     },
 
-    "/formats/json/jackson" bind GET to {
-        Response(OK).with(jacksonMessageLens of JacksonMessage("Barry", "Hello there!"))
-    },
-
-    "/testing/hamkrest" bind GET to {request ->
-        Response(OK).body("Echo '${request.bodyString()}'")
+    "/suppliers" bind GET to {request ->
+        Response(OK).body("Suppliers go here")
     }
 )
 

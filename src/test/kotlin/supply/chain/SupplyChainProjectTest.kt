@@ -15,6 +15,7 @@ import org.http4k.hamkrest.hasQuery
 import org.http4k.hamkrest.hasStatus
 import org.http4k.lens.string
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class SupplyChainProjectTest {
@@ -23,6 +24,7 @@ class SupplyChainProjectTest {
     fun `Ping test`() {
         assertEquals(Response(OK).body("pong"), app(Request(GET, "/ping")))
     }
+    @Disabled
     @Test
     fun `Check Hamkrest matcher for http4k work as expected`() {
         val request = Request(GET, "/testing/hamkrest?a=b").body("http4k is cool").header("my header", "a value")
