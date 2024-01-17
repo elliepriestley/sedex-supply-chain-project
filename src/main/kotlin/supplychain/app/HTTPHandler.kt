@@ -14,12 +14,22 @@ import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 
 val directSuppliersList = listOf("ZS456")
+val indirectSuppliersList = listOf("indirect supplier example")
+
 val optionalQuery = Query.string().optional("type")
 
 val app: HttpHandler = routes(
     "/suppliers" bind GET to {request ->
         val type: String? = optionalQuery(request)
-        Response(OK).body(directSuppliersList.toString())
+
+        if (type == "direct") {
+            Response(OK).body(directSuppliersList.toString())
+        } else if (type == "indirect") {
+            Response(OK).body(indirectSuppliersList.toString())
+        } else {
+            TODO()
+        }
+
     }
 )
 
