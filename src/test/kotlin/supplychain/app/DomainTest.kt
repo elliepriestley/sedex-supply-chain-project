@@ -3,9 +3,51 @@ package supplychain.app
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
+
 class DomainTest {
+
+    // User Story 1:
+    // As an admin at a top level customer org
+    // I want to view a list of my direct suppliers
+
+    /* SPEC
+    * Given a user U is present in a top level customer org O
+    * And a list of direct suppliers is present for O
+    * When U requests a list of their direct suppliers
+    * Then they are provided with [Suppliers]
+    * */
+
     @Test
-    fun `Given that an admin user at a top level org makes a call to suppliers endpoint with the parameter direct, they are given list of direct suppliers`() {
-        /// create test
+    fun `When the user's company has a list of suppliers and the user requests a list of direct suppliers, they are provided with a list of direct suppliers`() {
+
+        val mockSupplyChainRepoThatHasOnlyOneSupplier = object : SupplyChainRepoInterface {
+            override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
+                return SupplyChain(listOf("supplier1"))
+            }
+        }
+
+        val mockUserRepoThatAlwaysReturnsUserID123 = object : UserRepoInterface {
+            override fun fetchCompanyThatUserBelongsTo(userID: String): String {
+                return "user_id_123"
+            }
+        }
+        // make variable names more descriptive, not just "mockXRepo" - makes it easier to see what is going on quicker
+
+        val domain = Domain(mockUserRepoThatAlwaysReturnsUserID123, mockSupplyChainRepoThatHasOnlyOneSupplier)
+
+        assertEquals(domain.getDirectSuppliersForUser("user1"), listOf("supplier1"))
+
     }
+
+
 }
+
+
+    // When the user's company has no suppliers and the user requests a list of direct suppliers, the domain returns an empty list.
+
+    /* SPEC
+    * Given a user U is present in a top level customer org O
+    * And a list of direct suppliers is not present for O
+    * When U requests a list of their direct suppliers
+    * Then they are provided with []
+    * */

@@ -1,6 +1,10 @@
 package supplychain.app
 
-class Domain(private val userRepo: UserRepo, private val supplyChainRepo: SupplyChainRepo) {
+// when constructing the domain, be sure to use the interfaces rather than the actual repos.
+// We want the SHAPE of them, not the actual Repos, because we want them to be reusable
+
+// Nothing technology specific should be in the domain.
+class Domain(private val userRepo: UserRepoInterface, private val supplyChainRepo: SupplyChainRepoInterface) {
     fun getDirectSuppliersForUser(userID: String): List<String> {
 
 
@@ -17,7 +21,7 @@ class Domain(private val userRepo: UserRepo, private val supplyChainRepo: Supply
 
         return supplierIDs
 
-
+// domain should rely on interfaces not exact classes/technologies
     }
 
     private fun findDirectSuppliersForCompany(supplyChain: SupplyChain, companyID: String): List<String> {
