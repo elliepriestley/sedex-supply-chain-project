@@ -20,5 +20,15 @@ class HttpAPITest {
             .and(hasBody("[ZS456]")))
     }
 
+    @Test
+    fun `Test that suppliers endpoint optional query parameter type returns hard coded direct suppliers list`() {
+        val request = app(Request(GET, "http://localhost:9000/suppliers?type=direct"))
+
+        assertThat(request, hasStatus(OK)
+            .and(hasBody("[ZS456]")))
+    }
+
+
+
 
 }
