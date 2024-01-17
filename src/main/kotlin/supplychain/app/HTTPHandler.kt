@@ -1,13 +1,10 @@
-package supply.chain
+package supplychain.app
 
-import supply.chain.formats.JacksonMessage
-import supply.chain.formats.jacksonMessageLens
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Response
 import org.http4k.core.Status.Companion.OK
 import org.http4k.core.then
-import org.http4k.core.with
 import org.http4k.filter.DebuggingFilters.PrintRequest
 import org.http4k.lens.Query
 import org.http4k.lens.string
@@ -19,10 +16,6 @@ import org.http4k.server.asServer
 val optionalQuery = Query.string().optional("type")
 
 val app: HttpHandler = routes(
-    "/ping" bind GET to {
-        Response(OK).body("pong")
-    },
-
     "/suppliers" bind GET to {request ->
         val type: String? = optionalQuery(request)
         Response(OK).body("Suppliers go here")
