@@ -114,3 +114,9 @@ Document the API endpoints in a separate markdown file as you develop them.
 Create a Github build pipeline to run your tests and build the code on every commit to trunk.
 
 Initially, keep your data in a JSON file.
+
+## Assumptions 
+
+This section details any notable assumptions or questions made during the design process.
+
+- Assumption: when no optional query parameter provided, the suppliers endpoint will return ^direct^ suppliers

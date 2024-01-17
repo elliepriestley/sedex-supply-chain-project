@@ -38,6 +38,15 @@ class HttpAPITest {
             .and(hasBody("[indirect supplier example]")))
     }
 
+    @Test
+    fun `Test that when no optional query parameter provided, suppliers endpoint will return the direct suppliers`() {
+        val request = app(Request(GET, "http://localhost:9000/suppliers"))
+
+        assertThat(request, hasStatus(OK)
+            .and(hasBody("[ZS456]")))
+    }
+
+
 
 
 

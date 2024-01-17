@@ -21,15 +21,16 @@ val optionalQuery = Query.string().optional("type")
 val app: HttpHandler = routes(
     "/suppliers" bind GET to {request ->
         val type: String? = optionalQuery(request)
-
-        if (type == "direct") {
-            Response(OK).body(directSuppliersList.toString())
-        } else if (type == "indirect") {
-            Response(OK).body(indirectSuppliersList.toString())
+        if (type != null) {
+            when (type) {
+                "direct" -> Response(OK).body(directSuppliersList.toString())
+                "indirect" -> Response(OK).body(indirectSuppliersList.toString())
+                // todo: error handling
+                else -> TODO()
+            }
         } else {
-            TODO()
+            Response(OK).body(directSuppliersList.toString())
         }
-
     }
 )
 
