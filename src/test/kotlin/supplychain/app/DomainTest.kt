@@ -36,14 +36,8 @@ class DomainTest {
         val domain = Domain(mockUserRepoThatAlwaysReturnsUserID123, mockSupplyChainRepoThatHasOnlyOneSupplier)
 
         assertEquals(domain.getDirectSuppliersForUser("user1"), listOf("supplier1"))
-
     }
 
-
-}
-
-
-    // When the user's company has no suppliers and the user requests a list of direct suppliers, the domain returns an empty list.
 
     /* SPEC
     * Given a user U is present in a top level customer org O
@@ -51,3 +45,31 @@ class DomainTest {
     * When U requests a list of their direct suppliers
     * Then they are provided with []
     * */
+
+    @Test
+    fun `When the user's company has no suppliers and the user requests a list of direct suppliers, the domain returns an empty list`() {
+
+        // creating the mock SupplyChainRepo
+        val mockSupplyChainRepoWithNoSuppliers = object : SupplyChainRepoInterface {
+            override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
+                return SupplyChain(listOf())
+            }
+        }
+
+        // creating the mock userRepo
+        val mockUserRepoThatAlwaysReturnsUserID123 = object : UserRepoInterface {
+            override fun fetchCompanyThatUserBelongsTo(userID: String): String {
+                return "user_id_123"
+            }
+        }
+
+        val domain = Domain(mockUserRepoThatAlwaysReturnsUserID123, mockSupplyChainRepoWithNoSuppliers)
+        assertEquals(domain.getDirectSuppliersForUser("user1"), emptyList<String>())
+
+
+    }
+
+}
+
+
+
