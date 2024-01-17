@@ -13,14 +13,18 @@ import org.http4k.routing.routes
 import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 
+val directSuppliersList = listOf("ZS456")
 val optionalQuery = Query.string().optional("type")
 
 val app: HttpHandler = routes(
     "/suppliers" bind GET to {request ->
         val type: String? = optionalQuery(request)
-        Response(OK).body("Suppliers go here")
+        Response(OK).body(directSuppliersList.toString())
     }
 )
+
+
+
 
 fun main() {
     val printingApp: HttpHandler = PrintRequest().then(app)
