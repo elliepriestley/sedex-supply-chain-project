@@ -3,6 +3,7 @@ package supplychain.app
 import org.http4k.core.HttpHandler
 import org.http4k.core.Method.GET
 import org.http4k.core.Response
+import org.http4k.core.Status.Companion.NOT_FOUND
 import org.http4k.core.Status.Companion.OK
 import org.http4k.core.then
 import org.http4k.filter.DebuggingFilters.PrintRequest
@@ -13,32 +14,40 @@ import org.http4k.routing.routes
 import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 
-val directSuppliersList = listOf("ZS456")
-val indirectSuppliersList = listOf("indirect supplier example")
+class HttpAPI {
 
-val optionalQuery = Query.string().optional("type")
+    private val directSuppliersList = listOf("ZS456")
+    private val indirectSuppliersList = listOf("indirect supplier example")
 
-val app: HttpHandler = routes(
-    "/suppliers" bind GET to {request ->
-        val type: String? = optionalQuery(request)
-        if (type != null) {
-            when (type) {
-                "direct" -> Response(OK).body(directSuppliersList.toString())
-                "indirect" -> Response(OK).body(indirectSuppliersList.toString())
-                // todo: error handling
-                else -> TODO()
+    val optionalQuery = Query.string().optional("type")
+
+    val app: HttpHandler = routes(
+        "/suppliers" bind GET to {request ->
+            val type: String? = optionalQuery(request)
+            if (type != null) {
+                when (type) {
+                    "direct" -> Response(OK).body(directSuppliersList.toString())
+                    "indirect" -> Response(OK).body(indirectSuppliersList.toString())
+                    // todo: error handling
+                    else -> Response(NOT_FOUND).body("Error: ${NOT_FOUND}\nInvalid Supplier type")
+                }
+            } else {
+                Response(OK).body(directSuppliersList.toString())
             }
-        } else {
-            Response(OK).body(directSuppliersList.toString())
         }
-    }
-)
+    )
+
+}
+
+// should I have a separate JSON file with all suppliers ?
 
 
 
 
 fun main() {
-    val printingApp: HttpHandler = PrintRequest().then(app)
+    val api = HttpAPI()
+
+    val printingApp: HttpHandler = PrintRequest().then(api.app)
 
     val server = printingApp.asServer(SunHttp(9000)).start()
 
