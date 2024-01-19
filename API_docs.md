@@ -13,6 +13,9 @@ This is an API to fetch Supply Chain data. This document is in progress and will
 
 `type` i.e. `?type=direct` returns a list of all direct suppliers 
 
+- If a query parameter is incorrect then it is silently ignored (assumes direct suppliers)
+
+
 ### Response 
 
 Example response (JSON):
