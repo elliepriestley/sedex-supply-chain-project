@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test
 class DomainTest {
 
     // User Story 1:
-    // As an admin at a top level customer org
-    // I want to view a list of my direct suppliers
+    // As an admin at a top level customer org, I want to view a list of my direct suppliers
 
     /* SPEC
     * Given a user U is present in a top level customer org O
