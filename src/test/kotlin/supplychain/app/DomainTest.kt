@@ -1,6 +1,7 @@
 package supplychain.app
 
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 
@@ -16,12 +17,13 @@ class DomainTest {
     * Then they are provided with [Suppliers]
     * */
 
+
     @Test
     fun `When the user's company has a list of suppliers and the user requests a list of direct suppliers, they are provided with a list of direct suppliers`() {
 
         val mockSupplyChainRepoThatHasOnlyOneSupplier = object : SupplyChainRepoInterface {
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
-                return SupplyChain(listOf("supplier1"))
+                return SupplyChain(companyID, listOf("supplier1"))
             }
         }
 
@@ -51,7 +53,7 @@ class DomainTest {
         // creating the mock SupplyChainRepo
         val mockSupplyChainRepoWithNoSuppliers = object : SupplyChainRepoInterface {
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
-                return SupplyChain(listOf())
+                return SupplyChain(companyID, listOf())
             }
         }
 
