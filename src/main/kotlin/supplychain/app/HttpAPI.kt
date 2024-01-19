@@ -16,29 +16,28 @@ import org.http4k.server.asServer
 
 class HttpAPI {
 
-    private val directSuppliersList = listOf("ZS456")
-    private val indirectSuppliersList = listOf("indirect supplier example")
+    private val domain = Domain(FileUserRepo(), FileSupplyChainRepo())
+    private val userID = "ZU124"
+
 
     val optionalQuery = Query.string().optional("type")
 
     val app: HttpHandler = routes(
+
         "/suppliers" bind GET to {request ->
             val type: String? = optionalQuery(request)
-            if (type != null) {
-                when (type) {
-                    "direct" -> Response(OK).body(directSuppliersList.toString())
-                    "indirect" -> Response(OK).body(indirectSuppliersList.toString())
-                    else -> Response(NOT_FOUND).body("Error: ${NOT_FOUND}\nInvalid Supplier type")
-                }
-            } else {
-                Response(OK).body(directSuppliersList.toString())
+            val supplierIDs = domain.getDirectSuppliersForUser(userID)
+            Response(OK).body(supplierIDs.toString())
+
+            when (type) {
+                "direct" -> Response(OK).body(supplierIDs.toString())
+                "indirect" -> Response(OK).body("Feature not available yet")
+                else -> Response(OK).body(supplierIDs.toString())
             }
         }
     )
 
 }
-
-// should I have a separate JSON file with all suppliers ?
 
 
 

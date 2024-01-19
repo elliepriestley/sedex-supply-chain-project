@@ -18,5 +18,19 @@
   {
     "companyId": "company3",
     "directSuppliers": []
+  },
+  {
+    "companyId": "testCompany1",
+    "directSuppliers": [
+      "testSupplierX",
+      "testSupplierY"
+    ]
+  },
+  {
+    "companyId": "ZC790",
+    "directSuppliers": [
+      "Fruit Farm",
+      "Packaging Company"
+    ]
   }
 ]

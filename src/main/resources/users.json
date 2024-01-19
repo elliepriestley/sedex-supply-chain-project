@@ -6,5 +6,9 @@
   {
     "id": "ZU124",
     "companyId": "ZC790"
+  },
+  {
+    "id": "testUser1",
+    "companyId": "testCompany1"
   }
 ]
