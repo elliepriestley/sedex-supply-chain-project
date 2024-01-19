@@ -28,7 +28,6 @@ class HttpAPI {
                 when (type) {
                     "direct" -> Response(OK).body(directSuppliersList.toString())
                     "indirect" -> Response(OK).body(indirectSuppliersList.toString())
-                    // todo: error handling
                     else -> Response(NOT_FOUND).body("Error: ${NOT_FOUND}\nInvalid Supplier type")
                 }
             } else {
