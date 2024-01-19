@@ -14,5 +14,9 @@
       "supplier5",
       "supplier6"
     ]
+  },
+  {
+    "companyId": "company3",
+    "directSuppliers": []
   }
 ]

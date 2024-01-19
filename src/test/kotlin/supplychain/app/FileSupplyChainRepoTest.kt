@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class FileSupplyChainRepoTest {
     @Test
-    fun `Test that fetchSupplyChainForCompany is called suppliersjson file is read to return list of correct suppliers for specified companyId`() {
+    fun `Test that when fetchSupplyChainForCompany is called, suppliersjson file is read to return list of correct suppliers for specified companyId`() {
         val fileSupplyChainRepo = FileSupplyChainRepo()
 
         assertEquals(SupplyChain("ZC789", listOf("ZS456", "supplier2", "supplier3")), fileSupplyChainRepo.fetchSupplyChainForCompany("ZC789"), )
@@ -13,4 +13,11 @@ class FileSupplyChainRepoTest {
     }
 
     // Test that when fetchSupplyChainForCompany is called and the companyId does not exist on suppliersjson file, an Exception is thrown
+
+    @Test
+    fun `Test that when fetchSupplyChainForCompany is called and there are no direct suppliers present, returns empty list within SupplyChain object`() {
+        val fileSupplyChainRepo = FileSupplyChainRepo()
+        assertEquals(SupplyChain("company3", listOf()), fileSupplyChainRepo.fetchSupplyChainForCompany("company3"))
+    }
+
 }
