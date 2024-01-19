@@ -2,6 +2,8 @@ package supplychain.app
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.lang.Exception
 
 class FileSupplyChainRepoTest {
     @Test
@@ -18,6 +20,15 @@ class FileSupplyChainRepoTest {
     fun `Test that when fetchSupplyChainForCompany is called and there are no direct suppliers present, returns empty list within SupplyChain object`() {
         val fileSupplyChainRepo = FileSupplyChainRepo()
         assertEquals(SupplyChain("company3", listOf()), fileSupplyChainRepo.fetchSupplyChainForCompany("company3"))
+    }
+
+    @Test
+    fun `Test that when fetchSupplyChainForCompany is called and companyid does not exist, throws an Exception`() {
+        val fileSupplyChainRepo = FileSupplyChainRepo()
+        assertThrows<Exception> {
+            fileSupplyChainRepo.fetchSupplyChainForCompany("CompanyIDThatDoesntExist")
+        }
+
     }
 
 }
