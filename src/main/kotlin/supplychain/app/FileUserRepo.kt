@@ -3,6 +3,7 @@ package supplychain.app
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.io.File
+import java.lang.Exception
 
 class FileUserRepo: UserRepoInterface {
     private val mapper = jacksonObjectMapper()
@@ -13,8 +14,8 @@ class FileUserRepo: UserRepoInterface {
 
 
     override fun fetchCompanyThatUserBelongsTo(userID: String): String {
-        val user = usersFromJson.find { it.id == userID }
-        return user?.companyId ?: "Error Retrieving companyId"
+        val user = usersFromJson.find { it.id == userID } ?: throw Exception("Error finding user")
+        return user.companyId
     }
 }
 
