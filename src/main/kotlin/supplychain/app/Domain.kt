@@ -26,10 +26,8 @@ class Domain(private val userRepo: UserRepoInterface, private val supplyChainRep
 
     private fun findDirectSuppliersForCompany(supplyChain: SupplyChain, companyID: String): List<String> {
         return supplyChain.directSuppliers
+
     }
-
 }
 
-data class SupplyChain(val directSuppliers: List<String>) {
 
-}

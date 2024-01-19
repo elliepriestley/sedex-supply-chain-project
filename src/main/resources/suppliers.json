@@ -1,7 +1,7 @@
 [
   {
     "companyId": "ZC789",
-    "suppliers": [
+    "directSuppliers": [
       "ZS456",
       "supplier2",
       "supplier3"
@@ -9,7 +9,7 @@
   },
   {
     "companyId": "company2",
-    "suppliers": [
+    "directSuppliers": [
       "supplier4",
       "supplier5",
       "supplier6"
