@@ -1,5 +1,10 @@
 # Supply Chain Project
 
+## Dependencies
+Java version 17 or above
+Gradle?
+Jackson
+
 ## User Stories
 
 ### User story 1
