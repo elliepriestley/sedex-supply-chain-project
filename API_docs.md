@@ -1,20 +1,21 @@
-# API Docs
+# API Docs 💡
 
-## Description 
+## 💬 Description 
 This is an API to fetch Supply Chain data. This document is in progress and will be updated incrementally.
 
-## Base URL 
+## 👩‍💻 Base URL 
+`localhost:9000`
 
-## Endpoints 
+## 🔎 Endpoints 
 
-`GET /suppliers` returns a list of suppliers 
+`GET /suppliers` returns a list of direct suppliers 
 
 ### Parameters
 
 `type` i.e. `?type=direct` returns a list of all direct suppliers 
 
 - If a query parameter is incorrect then it is silently ignored (assumes direct suppliers)
-
+- If the type specified is `indirect`, the program will return `Feature not available yet`
 
 ### Response 
 
@@ -36,4 +37,45 @@ Example response (JSON):
 If there are no suppliers, an empty array will be returned.
 
 
-## Error Codes
+## ❌ Error Codes
+
+
+## Future Scope for User Story 2:
+
+/suppliers/:id
+Returns a specific supplier by ID,
+Example response (JSON):
+
+```
+{
+            "id": "ZC1234",
+            "name": "Leah's sister's farm",
+            "..":
+            "..":
+            ".."
+}
+```
+
+## Future Scope for User Story 3:
+`POST /suppliers`
+
+```
+{
+"name": "Ellie's pharmacy",
+"...": "",
+"...": ""  
+}
+```
+
+Response:
+HTTP 201
+```
+{
+"id": "ZC9876",
+"name": "Ellie's pharmacy",
+"..":
+"..":
+".."
+}
+
+```
