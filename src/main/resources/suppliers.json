@@ -1,10 +1,18 @@
-{
-  "suppliers": [
-    {
-      "id": "ZC1234"
-    },
-    {
-      "id": "ZC5678"
-    }
-  ]
-}
+[
+  {
+    "companyId": "ZC789",
+    "suppliers": [
+      "ZS456",
+      "supplier2",
+      "supplier3"
+    ]
+  },
+  {
+    "companyId": "company2",
+    "suppliers": [
+      "supplier4",
+      "supplier5",
+      "supplier6"
+    ]
+  }
+]
