@@ -21,7 +21,7 @@ This project is part of a learning path, following [these](https://github.com/ac
 
 ## 👥 User Stories
 
-### User story 1
+### User story 1 ✅
 
 As an admin at a top-level customer org
 I want to view a list of my direct suppliers
