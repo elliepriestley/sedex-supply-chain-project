@@ -5,7 +5,7 @@ fun main() {
     val supplyChainRepo = FileSupplyChainRepo()
     val domain = Domain(userRepo, supplyChainRepo)
 
-    val supplierIDs = domain.getDirectSuppliersForUser("ZU123")
+    val supplierIDs = domain.getDirectSuppliersForUser("testUser1")
 
     println("supplierIDs: $supplierIDs")
 

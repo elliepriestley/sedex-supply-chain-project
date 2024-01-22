@@ -29,14 +29,17 @@ class DomainTest {
 
         val mockUserRepoThatAlwaysReturnsUserID123 = object : UserRepoInterface {
             override fun fetchCompanyThatUserBelongsTo(userID: String): String {
-                return "user_id_123"
+                return "company_id_123"
             }
         }
         // make variable names more descriptive, not just "mockXRepo" - makes it easier to see what is going on quicker
 
         val domain = Domain(mockUserRepoThatAlwaysReturnsUserID123, mockSupplyChainRepoThatHasOnlyOneSupplier)
 
-        assertEquals(domain.getDirectSuppliersForUser("user1"), listOf("supplier1"))
+        val actual = domain.getDirectSuppliersForUser("user1")
+        val expected = SupplyChain(companyId="company_id_123", directSuppliers= listOf("supplier1"))
+
+        assertEquals(expected, actual)
     }
 
 
@@ -60,12 +63,16 @@ class DomainTest {
         // creating the mock userRepo
         val mockUserRepoThatAlwaysReturnsUserID123 = object : UserRepoInterface {
             override fun fetchCompanyThatUserBelongsTo(userID: String): String {
-                return "user_id_123"
+                return "company_id_123"
             }
         }
 
         val domain = Domain(mockUserRepoThatAlwaysReturnsUserID123, mockSupplyChainRepoWithNoSuppliers)
-        assertEquals(domain.getDirectSuppliersForUser("user1"), emptyList<String>())
+
+        val actual = domain.getDirectSuppliersForUser("user1")
+        val expected = SupplyChain("company_id_123", listOf())
+
+        assertEquals(expected, actual)
 
 
     }

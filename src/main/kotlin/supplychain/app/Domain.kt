@@ -18,8 +18,6 @@ class Domain(private val userRepo: UserRepoInterface, private val supplyChainRep
         // todo: handle errors
         val supplyChain: SupplyChain = supplyChainRepo.fetchSupplyChainForCompany(companyID)
 
-        println(supplyChain)
-
         return convertSupplyChainToJsonObject(supplyChain)
 
 
