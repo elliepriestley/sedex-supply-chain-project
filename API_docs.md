@@ -23,22 +23,25 @@ Example response (JSON):
 
 ```
 {
-    "suppliers": [
-        {
-            "id": "ZC1234"
-        },
-        {
-            "id": "ZC5678"
-        }
+    "companyId": "ZC789",
+    "directSuppliers": [
+        "ZS456",
+        "ZS789",
+        "ZS119"
     ]
 }
 ```
 
-If there are no suppliers, an empty array will be returned.
-
+If there are no suppliers, an empty array will be returned:
+```
+{
+    "companyId": "ZC789",
+    "directSuppliers": []
+}
+```
 
 ## ❌ Error Codes
-
+This section is a WIP
 
 ## Future Scope for User Story 2:
 
