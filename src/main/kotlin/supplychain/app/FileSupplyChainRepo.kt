@@ -12,6 +12,7 @@ class FileSupplyChainRepo: SupplyChainRepoInterface {
     private val supplierDataForAllOrganisationsFromJson: List<SupplyChain> = mapper.readValue(jsonContent, object : TypeReference<List<SupplyChain>>() {})
     override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
        val supplyChainOfCompanyId = supplierDataForAllOrganisationsFromJson.find {it.companyId == companyID}
+        println(supplyChainOfCompanyId)
         return supplyChainOfCompanyId ?: throw Exception("Error finding Company ID")
     }
 }

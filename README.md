@@ -40,7 +40,7 @@ I want to add a direct supplier to my supply chain
 
 - The interface to this functionality will be a RESTful web API.
 - The API endpoints will be developed in a separate markdown file as the program grows.
-- TODO(): Create a Github build pipeline to run your tests and build the code on every commit to trunk.
+- TODO(): Create a GitHub build pipeline to run your tests and build the code on every commit to trunk.
 
 
 ## 🧠 Assumptions 

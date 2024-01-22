@@ -10,5 +10,10 @@
   {
     "id": "testUser1",
     "companyId": "testCompany1"
+  },
+
+  {
+    "id": "userInCompanyWithNoSuppliers",
+    "companyId": "company3"
   }
 ]
