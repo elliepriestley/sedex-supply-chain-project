@@ -77,6 +77,53 @@ class DomainTest {
 
     }
 
+    // User Story 2:
+    // As an admin at a top-level customer org, I want to get the details of a direct supplier that I specify by ID
+
+    /** SPEC
+     * Given a user U is present in a top level organisation O
+     * And U is an admin at O
+     * When U requests the details of a direct supplier S that they specify by ID (S_ID)
+     * Then they are provided with:
+     * {S_ID : [
+     *      name: xxxx,
+     *      location: xxxx,
+     *      produce: xxxx
+     *     ]
+     * }
+     *
+     */
+
+    /* Test Case 1
+    * The domain tries to find the details for a direct supplier id (ZS456) that exists.
+    * Create a mock supply chain repo so that when the domain searches for details on supplier ZS456, it returns:
+    *       ZS456: [
+    *           name: "Appleton Farm",
+    *           location: "Warrington",
+    *           produce: "apples"
+    *          ]
+    * When we query the details for supplier by id: ZS456
+    * Assert that the reply is return value above.
+    *
+    *
+    * Test Case 2
+    * The domain tries to find the details for a direct supplier id (InvalidSupplierId) that does not exist.
+    * Create a mock supply chain repo that does not contain the supplier id:
+    * When we query the details for supplier by id: (InvalidSupplierId)
+    * Assert that an exception is raised to tell the user it is an invalid request.
+    *
+    *
+    * Test Case 3
+    * The domain tries to find the details for a direct supplier id (SupplierWithNoDetails) that exists, but has no supplier details.
+    * Create a mock supply chain repo so that when the domain searches for details on supplier ZS456, it returns:
+    *       SupplierWithNoDetails: []
+    * When we query the details for supplier by id: SupplierWithNoDetails
+    * Assert that the reply is: SupplierWithNoDetails : []
+    *
+    * */
+
+
+
 }
 
 
