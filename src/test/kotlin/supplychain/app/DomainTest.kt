@@ -25,6 +25,10 @@ class DomainTest {
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
                 return SupplyChain(companyID, listOf("supplier1"))
             }
+
+            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
+                TODO("Not yet implemented")
+            }
         }
 
         val mockUserRepoThatAlwaysReturnsUserID123 = object : UserRepoInterface {
@@ -57,6 +61,10 @@ class DomainTest {
         val mockSupplyChainRepoWithNoSuppliers = object : SupplyChainRepoInterface {
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
                 return SupplyChain(companyID, listOf())
+            }
+
+            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
+                TODO("Not yet implemented")
             }
         }
 

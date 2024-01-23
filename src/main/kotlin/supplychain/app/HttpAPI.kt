@@ -21,19 +21,29 @@ class HttpAPI {
     private val mapper = ObjectMapper()
 
 
-    val optionalQuery = Query.string().optional("type")
+    val optionalTypeQuery = Query.string().optional("type")
+    val optionalIdQuery = Query.string().optional("id")
 
     val app: HttpHandler = routes(
 
         "/suppliers" bind GET to {request ->
-            val type: String? = optionalQuery(request)
+            val type: String? = optionalTypeQuery(request)
+            val id: String? = optionalIdQuery(request)
             val supplierIDs = domain.getDirectSuppliersForUser(userID)
+            val supplierDetails = domain.getDetailsForSupplier(id)
 
             when (type) {
                 "direct" -> Response(OK).body(mapper.writeValueAsString(supplierIDs))
                 "indirect" -> Response(OK).body("Feature not available yet")
                 else -> Response(OK).body(mapper.writeValueAsString(supplierIDs))
             }
+
+            if (id != null) {
+                Response(OK).body(supplierDetails.toString())
+            } else {
+                TODO()// todo: error handling
+            }
+
         }
     )
 

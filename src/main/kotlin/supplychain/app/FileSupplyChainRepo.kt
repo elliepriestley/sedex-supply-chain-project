@@ -15,10 +15,20 @@ class FileSupplyChainRepo: SupplyChainRepoInterface {
         println(supplyChainOfCompanyId)
         return supplyChainOfCompanyId ?: throw Exception("Error finding Company ID")
     }
+
+    override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
+        if (supplierId == "ZS123") {
+            return mapOf("name" to "Appleton Farm", "location" to "Warrington", "produce" to "apples")
+        } else {
+            TODO()
+        }
+    }
+
 }
 
 interface SupplyChainRepoInterface {
     fun fetchSupplyChainForCompany(companyID: String): SupplyChain
+    fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String>
 
 }
 
