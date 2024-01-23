@@ -85,11 +85,11 @@ class DomainTest {
      * And U is an admin at O
      * When U requests the details of a direct supplier S that they specify by ID (S_ID)
      * Then they are provided with:
-     * {S_ID : [
-     *      name: xxxx,
-     *      location: xxxx,
-     *      produce: xxxx
-     *     ]
+     * {"S_ID" : {
+     *      "name": "xxxx",
+     *      "location": "xxxx",
+     *      "produce": "xxxx"
+     *     }
      * }
      *
      */
@@ -97,11 +97,11 @@ class DomainTest {
     /* Test Case 1
     * The domain tries to find the details for a direct supplier id (ZS456) that exists.
     * Create a mock supply chain repo so that when the domain searches for details on supplier ZS456, it returns:
-    *       ZS456: [
-    *           name: "Appleton Farm",
-    *           location: "Warrington",
-    *           produce: "apples"
-    *          ]
+    *       "ZS456": {
+    *           "name": "Appleton Farm",
+    *           "location": "Warrington",
+    *           "produce": "apples"
+    *          }
     * When we query the details for supplier by id: ZS456
     * Assert that the reply is return value above.
     *
@@ -116,9 +116,10 @@ class DomainTest {
     * Test Case 3
     * The domain tries to find the details for a direct supplier id (SupplierWithNoDetails) that exists, but has no supplier details.
     * Create a mock supply chain repo so that when the domain searches for details on supplier ZS456, it returns:
-    *       SupplierWithNoDetails: []
+    *       "SupplierWithNoDetails": {}
     * When we query the details for supplier by id: SupplierWithNoDetails
-    * Assert that the reply is: SupplierWithNoDetails : []
+    * Assert that the reply is:
+    *   "SupplierWithNoDetails" : {}
     *
     * */
 
