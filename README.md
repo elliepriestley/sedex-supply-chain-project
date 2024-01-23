@@ -25,8 +25,8 @@ This project is part of a learning path, following [these](https://github.com/ac
 
 As an admin at a top-level customer org
 I want to view a list of my direct suppliers
-
-### User story 2
+ 
+### User story 2 📍
 
 As an admin at a top-level customer org
 I want to get the details of a direct supplier that I specify by ID.
@@ -49,3 +49,4 @@ This section details any notable assumptions or questions made during the design
 
 - Assumption: when no optional query parameter provided, the suppliers endpoint will return direct suppliers
 - Assumption: when an optional query parameter is provided and is invalid, the suppliers endpoint will return direct suppliers
+- Assumption: when user requests details for specific supplier by ID, they have permission to view this information, i.e. the program currently does not have rules for visibility. 
