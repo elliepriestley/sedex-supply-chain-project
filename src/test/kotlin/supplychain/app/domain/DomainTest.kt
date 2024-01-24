@@ -2,10 +2,9 @@ package supplychain.app.domain
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import supplychain.app.domain.Domain
-import supplychain.app.domain.SupplyChain
-import supplychain.app.domain.SupplyChainRepoInterface
-import supplychain.app.domain.UserRepoInterface
+import supplychain.app.repo.SupplyChain
+import supplychain.app.repo.SupplyChainRepoInterface
+import supplychain.app.repo.UserRepoInterface
 
 
 class DomainTest {
@@ -138,8 +137,50 @@ class DomainTest {
     *          }
     */
 
+    @Test
+    fun `User can request existing supplier's details`() {
+
+        // Arrange
+        // create the domain, pass through mocks of user repo and supplychain repo
+
+        val mockUserRepo = object : UserRepoInterface {
+            override fun fetchCompanyThatUserBelongsTo(userID: String): String {
+                return "org_a"
+            }
+        }
+
+        val mockSupplyChainRepo = object : SupplyChainRepoInterface {
+            override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
+                TODO("Not yet implemented")
+            }
+
+            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
+                return mapOf("name" to "Appleton Farm")
+            }
+
+        }
+
+        val domain = Domain(mockUserRepo, mockSupplyChainRepo)
+        val expected = mapOf("name" to "Appleton Farm")
+
+
+        // Act
+        // call domain.getSupplierDetails(userid, supplier)
+        val actual = domain.getDetailsForSupplier("user_a", "supplier_a")
+
+
+        // Assert
+        // Assert that this returns supplier details.
+        assertEquals(expected, actual)
+
+
+    }
+
+
+
+
     /*
-    * Test Case 2 - whensSupplier Exists but is not in the user's company's direct supply chain.
+    * Test Case 2 - when supplier Exists but is not in the user's company's direct supply chain.
     * The domain tries to find the details for a direct supplier id (ZS456) for a User user_b. The User DOES NOT belong to
     * an organisation with the supplier in its direct supply chain.
     * Create a mock user repo so that when the domain searches for the company id of user_b it returns
@@ -195,7 +236,7 @@ class DomainTest {
     * Assert that a generic error message is raised, i.e. Supplier not found.
     */
 
-    /* Test Case 4 - when there are no supplier details
+    /* Test Case 4 - when there are no supplier details // assume this is not possible - data issue
     * The domain tries to find the details for a direct supplier id (SupplierWithNoDetails) that exists, where the
     * user user_d is part of an org org_d that has this supplier in its direct supply chain, but where the supplier has no details.
     * Create a mock user repo that contains the following:
