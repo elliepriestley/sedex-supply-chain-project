@@ -31,23 +31,27 @@ class Domain(private val userRepo: UserRepoInterface, private val supplyChainRep
         return jsonSupplyChain
     }
 
-    fun getDetailsForSupplier(userId: String?, supplierId: String?): Map<String, String> {
-        // first get the org the user belongs to
-        if (userId == "ZU123") {
-            val org = "ZC456"
-        } else {
-            // todo: handle error
-        }
+    fun getDetailsForSupplier(userId: String, supplierId: String?): Map<String, String>? {
+        // get the org the user belongs to
+        val companyId: String = userRepo.fetchCompanyThatUserBelongsTo(userId)
 
-        // do a check to see if the
-        if (supplierId == null) {
-            // todo: handle error
+        // check if the supplierId is part of the list of suppliers in companyID
+        val companySupplyChain = supplyChainRepo.fetchSupplyChainForCompany(companyId)
+        val companySupplierList = companySupplyChain.directSuppliers
+        val userHasAccessToSupplierDetails: Boolean = companySupplierList.contains(supplierId)
 
-            TODO()
-        } else {
-            val supplierDetails = supplyChainRepo.fetchSupplierDetailsBySupplierId(supplierId)
+        // if user has access, then return details.
+        if (userHasAccessToSupplierDetails) {
+            val supplierDetails = supplierId?.let { supplyChainRepo.fetchSupplierDetailsBySupplierId(it) }
             return supplierDetails
+        } else {
+            throw Exception("Cannot access supplier details")
         }
+
+
+        // if not, raise an exception
+
+
 
     }
 }
