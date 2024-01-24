@@ -1,4 +1,4 @@
-package supplychain.app.domain
+package supplychain.app.repo
 
 data class SupplyChain (
     val companyId: String,

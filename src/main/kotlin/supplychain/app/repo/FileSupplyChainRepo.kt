@@ -1,7 +1,8 @@
-package supplychain.app.domain
+package supplychain.app.repo
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+
 import java.io.File
 
 class FileSupplyChainRepo: SupplyChainRepoInterface {
@@ -26,11 +27,7 @@ class FileSupplyChainRepo: SupplyChainRepoInterface {
 
 }
 
-interface SupplyChainRepoInterface {
-    fun fetchSupplyChainForCompany(companyID: String): SupplyChain
-    fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String>
 
-}
 
 
 

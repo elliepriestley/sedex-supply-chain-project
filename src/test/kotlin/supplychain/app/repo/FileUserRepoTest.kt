@@ -1,9 +1,9 @@
-package supplychain.app.domain
+package supplychain.app.repo
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import supplychain.app.domain.FileUserRepo
+import supplychain.app.repo.FileUserRepo
 
 
 class FileUserRepoTest {

@@ -1,4 +1,4 @@
-package supplychain.app.domain
+package supplychain.app.repo
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -19,8 +19,5 @@ class FileUserRepo: UserRepoInterface {
     }
 }
 
-interface UserRepoInterface {
-    fun fetchCompanyThatUserBelongsTo(userID: String): String
 
-}
 

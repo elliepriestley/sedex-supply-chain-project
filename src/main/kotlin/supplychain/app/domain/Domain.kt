@@ -2,6 +2,9 @@ package supplychain.app.domain
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import supplychain.app.repo.SupplyChain
+import supplychain.app.repo.SupplyChainRepoInterface
+import supplychain.app.repo.UserRepoInterface
 
 // when constructing the domain, be sure to use the interfaces rather than the actual repos.
 // We want the SHAPE of them, not the actual Repos, because we want them to be reusable
@@ -28,12 +31,21 @@ class Domain(private val userRepo: UserRepoInterface, private val supplyChainRep
         return jsonSupplyChain
     }
 
-    fun getDetailsForSupplier(SupplierId: String?): Map<String, String> {
-        if (SupplierId == null) {
+    fun getDetailsForSupplier(userId: String?, supplierId: String?): Map<String, String> {
+        // first get the org the user belongs to
+        if (userId == "ZU123") {
+            val org = "ZC456"
+        } else {
             // todo: handle error
+        }
+
+        // do a check to see if the
+        if (supplierId == null) {
+            // todo: handle error
+
             TODO()
         } else {
-            val supplierDetails = supplyChainRepo.fetchSupplierDetailsBySupplierId(SupplierId)
+            val supplierDetails = supplyChainRepo.fetchSupplierDetailsBySupplierId(supplierId)
             return supplierDetails
         }
 

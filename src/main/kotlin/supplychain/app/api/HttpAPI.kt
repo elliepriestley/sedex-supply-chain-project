@@ -1,4 +1,4 @@
-package supplychain.app
+package supplychain.app.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.http4k.core.HttpHandler
@@ -14,10 +14,11 @@ import org.http4k.routing.routes
 import org.http4k.server.SunHttp
 import org.http4k.server.asServer
 import supplychain.app.domain.*
+import supplychain.app.repo.FileSupplyChainRepo //
+import supplychain.app.repo.FileUserRepo //
 
-class HttpAPI {
+class HttpAPI(domain: Domain) {
 
-    private val domain = Domain(FileUserRepo(), FileSupplyChainRepo())
     private val userID = "ZU123"
     private val mapper = ObjectMapper()
 
@@ -29,9 +30,9 @@ class HttpAPI {
 
         "/suppliers" bind GET to {request ->
             val type: String? = optionalTypeQuery(request)
-            val id: String? = optionalIdQuery(request)
+            val supplierId: String? = optionalIdQuery(request)
             val supplierIDs = domain.getDirectSuppliersForUser(userID)
-            val supplierDetails = domain.getDetailsForSupplier(id)
+            val supplierDetails = domain.getDetailsForSupplier(userID, supplierId)
 
             when (type) {
                 "direct" -> Response(OK).body(mapper.writeValueAsString(supplierIDs))
@@ -39,8 +40,9 @@ class HttpAPI {
                 else -> Response(OK).body(mapper.writeValueAsString(supplierIDs))
             }
 
-            if (id != null) {
-                Response(OK).body(supplierDetails.toString())
+            if (supplierId != null) {
+                val mapOfSupplierDetails = mapOf(supplierId to supplierDetails)
+                Response(OK).body(mapOfSupplierDetails.toString())
             } else {
                 TODO()// todo: error handling
             }
@@ -51,12 +53,4 @@ class HttpAPI {
 }
 
 
-fun main() {
-    val api = HttpAPI()
 
-    val printingApp: HttpHandler = PrintRequest().then(api.app)
-
-    val server = printingApp.asServer(SunHttp(9000)).start()
-
-    println("Server started on " + server.port())
-}

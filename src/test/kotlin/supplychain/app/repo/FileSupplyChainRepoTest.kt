@@ -1,10 +1,10 @@
-package supplychain.app.domain
+package supplychain.app.repo
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import supplychain.app.domain.FileSupplyChainRepo
-import supplychain.app.domain.SupplyChain
+import supplychain.app.repo.FileSupplyChainRepo
+import supplychain.app.repo.SupplyChain
 import java.lang.Exception
 
 class FileSupplyChainRepoTest {

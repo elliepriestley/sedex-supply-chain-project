@@ -1,4 +1,4 @@
-package supplychain.app.domain
+package supplychain.app.repo
 
 data class UserDataModel (
     val id: String,
