@@ -2,7 +2,11 @@
   {
     "companyId": "ZC789",
     "directSuppliers": [
-      "ZS456",
+      {"ZS456": {
+        "name": "Appleton Farm",
+        "location": "Warrington",
+        "produce": "apples"
+        }},
       "supplier2",
       "supplier3"
     ]

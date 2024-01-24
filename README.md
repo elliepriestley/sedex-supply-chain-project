@@ -49,4 +49,6 @@ This section details any notable assumptions or questions made during the design
 
 - Assumption: when no optional query parameter provided, the suppliers endpoint will return direct suppliers
 - Assumption: when an optional query parameter is provided and is invalid, the suppliers endpoint will return direct suppliers
-- Assumption: when user requests details for specific supplier by ID, they have permission to view this information, i.e. the program currently does not have rules for visibility. 
+- Assumption: when a user requests details for a specific supplier id, which is not found in the org the user belongs to,
+the program will return a generic error response. It will not differentiate between the supplier not existing at all, and 
+the supplier not being found in the organisation's supply chain. This is for security.
