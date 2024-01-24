@@ -1,8 +1,7 @@
-package supplychain.app
+package supplychain.app.domain
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import java.util.function.Supplier
 
 // when constructing the domain, be sure to use the interfaces rather than the actual repos.
 // We want the SHAPE of them, not the actual Repos, because we want them to be reusable

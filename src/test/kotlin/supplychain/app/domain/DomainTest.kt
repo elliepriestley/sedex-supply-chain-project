@@ -1,8 +1,11 @@
-package supplychain.app
+package supplychain.app.domain
 
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import supplychain.app.domain.Domain
+import supplychain.app.domain.SupplyChain
+import supplychain.app.domain.SupplyChainRepoInterface
+import supplychain.app.domain.UserRepoInterface
 
 
 class DomainTest {

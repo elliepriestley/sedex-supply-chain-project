@@ -1,5 +1,7 @@
 package supplychain.app
 
+import supplychain.app.domain.*
+
 fun main() {
     val userRepo = FileUserRepo()
     val supplyChainRepo = FileSupplyChainRepo()

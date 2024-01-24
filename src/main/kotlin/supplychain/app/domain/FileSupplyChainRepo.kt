@@ -1,4 +1,4 @@
-package supplychain.app
+package supplychain.app.domain
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
