@@ -2,21 +2,42 @@
   {
     "companyId": "ZC789",
     "directSuppliers": [
-      {"ZS456": {
-        "name": "Appleton Farm",
-        "location": "Warrington",
-        "produce": "apples"
-        }},
-      "supplier2",
-      "supplier3"
+      {
+        "ZS456": {
+          "name": "Appleton Farm",
+          "location": "Warrington",
+          "produce": "apples"
+        },
+        "supplier2": {
+          "name": "Supplier2 Name",
+          "location": "Supplier 2 Location",
+          "produce": "cherries"
+        },
+        "supplier3": {
+          "name": "Supplier 3 Name",
+          "location": "Supplier 3 Location",
+          "produce": "peaches"
+        }
+      }
     ]
   },
   {
     "companyId": "company2",
     "directSuppliers": [
-      "supplier4",
-      "supplier5",
-      "supplier6"
+      {
+        "supplier4": {
+          "name": "Suppler 4 name",
+          "location": "Supplier 4 location"
+        },
+        "supplier5": {
+          "name": "Suppler 5 name",
+          "location": "Supplier 5 location"
+        },
+        "supplier6": {
+          "name": "Suppler 6 name",
+          "location": "Supplier 6 location"
+        }
+      }
     ]
   },
   {
@@ -26,15 +47,31 @@
   {
     "companyId": "testCompany1",
     "directSuppliers": [
-      "testSupplierX",
-      "testSupplierY"
+      {
+        "testSupplierX": {
+          "name": "Test supplier X name",
+          "location": "Test Supplier X location"
+        },
+        "testSupplierY": {
+          "name": "Test Supplier Y name",
+          "location": "Test Supplier Y location"
+        }
+      }
     ]
   },
   {
     "companyId": "ZC790",
     "directSuppliers": [
-      "Fruit Farm",
-      "Packaging Company"
+      {
+        "Fruit_Farm": {
+          "name": "Fruit Farm name",
+          "location": "Fruit Farm location"
+        },
+        "Packaging_Company": {
+          "name": "Packaging Supplier name",
+          "location": "Packaging Supplier location"
+        }
+      }
     ]
   }
 ]

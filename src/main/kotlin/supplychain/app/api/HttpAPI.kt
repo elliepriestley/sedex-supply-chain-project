@@ -19,7 +19,7 @@ import supplychain.app.repo.FileUserRepo //
 
 class HttpAPI(domain: Domain) {
 
-    private val userID = "ZU123"
+    private val userID = "ZU124"
     private val mapper = ObjectMapper()
 
 
@@ -32,7 +32,7 @@ class HttpAPI(domain: Domain) {
             val type: String? = optionalTypeQuery(request)
             val supplierId: String? = optionalIdQuery(request)
             val supplierIDs = domain.getDirectSuppliersForUser(userID)
-            val supplierDetails = domain.getDetailsForSupplier(userID, supplierId)
+            val supplierDetails = supplierId?.let { domain.getDetailsForSupplier(userID, it) }
 
             when (type) {
                 "direct" -> Response(OK).body(mapper.writeValueAsString(supplierIDs))

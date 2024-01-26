@@ -2,6 +2,7 @@ package supplychain.app.domain
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import supplychain.app.repo.Supplier
 import supplychain.app.repo.SupplyChain
 import supplychain.app.repo.SupplyChainRepoInterface
 import supplychain.app.repo.UserRepoInterface
@@ -31,19 +32,23 @@ class Domain(private val userRepo: UserRepoInterface, private val supplyChainRep
         return jsonSupplyChain
     }
 
-    fun getDetailsForSupplier(userId: String, supplierId: String?): Map<String, String>? {
+    fun getDetailsForSupplier(userId: String, supplierId: String): Supplier? {
         // get the org the user belongs to
         val companyId: String = userRepo.fetchCompanyThatUserBelongsTo(userId)
+        println("The company the user belongs to is $companyId")
 
         // check if the supplierId is part of the list of suppliers in companyID
         val companySupplyChain = supplyChainRepo.fetchSupplyChainForCompany(companyId)
-        val companySupplierList = companySupplyChain.directSuppliers
-        val userHasAccessToSupplierDetails: Boolean = companySupplierList.contains(supplierId)
+        val companySupplierList: List<Map<String, Supplier>> = companySupplyChain.directSuppliers
+        val userHasAccessToSupplierDetails = companySupplierList.any {it.containsKey(supplierId)}
+        println("Does user have access to the supplier details: $userHasAccessToSupplierDetails")
 
         // if user has access, then return details.
         if (userHasAccessToSupplierDetails) {
-            val supplierDetails = supplierId?.let { supplyChainRepo.fetchSupplierDetailsBySupplierId(it) }
-            return supplierDetails
+            return supplyChainRepo.fetchSupplierDetailsBySupplierId(companySupplyChain, supplierId)
+
+//            val supplierDetails = supplierId.let { supplyChainRepo.fetchSupplierDetailsBySupplierId(it) }
+//            return supplierDetails
         } else {
             throw Exception("Cannot access supplier details")
         }

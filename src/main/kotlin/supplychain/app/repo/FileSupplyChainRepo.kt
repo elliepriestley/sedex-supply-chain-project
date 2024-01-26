@@ -13,16 +13,14 @@ class FileSupplyChainRepo: SupplyChainRepoInterface {
     private val supplierDataForAllOrganisationsFromJson: List<SupplyChain> = mapper.readValue(jsonContent, object : TypeReference<List<SupplyChain>>() {})
     override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
        val supplyChainOfCompanyId = supplierDataForAllOrganisationsFromJson.find {it.companyId == companyID}
-        println(supplyChainOfCompanyId)
         return supplyChainOfCompanyId ?: throw Exception("Error finding Company ID")
     }
 
-    override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
-        if (supplierId == "ZS123") {
-            return mapOf("name" to "Appleton Farm", "location" to "Warrington", "produce" to "apples")
-        } else {
-            TODO()
-        }
+    override fun fetchSupplierDetailsBySupplierId(supplyChain: SupplyChain, supplierId: String): Supplier? {
+        val supplierDetails = supplyChain.directSuppliers.firstOrNull { it.containsKey(supplierId) }?.get(supplierId)
+        return supplierDetails
+        // TODO() Error Handling
+
     }
 
 }
