@@ -2,6 +2,7 @@ package supplychain.app.domain
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import supplychain.app.repo.Supplier
 import supplychain.app.repo.SupplyChain
 import supplychain.app.repo.SupplyChainRepoInterface
 import supplychain.app.repo.UserRepoInterface
@@ -25,10 +26,10 @@ class DomainTest {
 
         val mockSupplyChainRepoThatHasOnlyOneSupplier = object : SupplyChainRepoInterface {
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
-                return SupplyChain(companyID, listOf("supplier1"))
+                return SupplyChain(companyID, listOf(mapOf("supplier1" to Supplier("fakeName", "fakeLocation", "fakeProduce"))))
             }
 
-            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
+            override fun fetchSupplierDetailsBySupplierId(supplyChain: SupplyChain, supplierId: String): Supplier {
                 TODO("Not yet implemented")
             }
         }
@@ -43,7 +44,7 @@ class DomainTest {
         val domain = Domain(mockUserRepoThatAlwaysReturnsUserID123, mockSupplyChainRepoThatHasOnlyOneSupplier)
 
         val actual = domain.getDirectSuppliersForUser("user1")
-        val expected = SupplyChain(companyId="company_id_123", directSuppliers= listOf("supplier1"))
+        val expected = SupplyChain(companyId="company_id_123", directSuppliers= listOf(mapOf("supplier1" to Supplier("fakeName", "fakeLocation", "fakeProduce"))))
 
         assertEquals(expected, actual)
     }
@@ -65,7 +66,7 @@ class DomainTest {
                 return SupplyChain(companyID, listOf())
             }
 
-            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
+            override fun fetchSupplierDetailsBySupplierId(supplyChain: SupplyChain, supplierId: String): Supplier {
                 TODO("Not yet implemented")
             }
         }
@@ -142,36 +143,36 @@ class DomainTest {
 
         // Arrange
         // create the domain, pass through mocks of user repo and supplychain repo
+        val supplierId = "supplier_a"
+        val orgId = "org_a"
+        val userId = "user_a"
+        val supplierDetails = Supplier("Appleton Farm","Warrington", "apples")
 
         val mockUserRepo = object : UserRepoInterface {
             override fun fetchCompanyThatUserBelongsTo(userID: String): String {
-                return "org_a"
+                return orgId
             }
         }
 
         val mockSupplyChainRepo = object : SupplyChainRepoInterface {
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
-                TODO("Not yet implemented")
+                return SupplyChain(orgId, listOf(mapOf(supplierId to supplierDetails)))
             }
 
-            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
-                return mapOf("name" to "Appleton Farm")
+            override fun fetchSupplierDetailsBySupplierId(supplyChain: SupplyChain, supplierId: String): Supplier {
+                return supplierDetails
             }
 
         }
-
         val domain = Domain(mockUserRepo, mockSupplyChainRepo)
-        val expected = mapOf("name" to "Appleton Farm")
-
 
         // Act
         // call domain.getSupplierDetails(userid, supplier)
-        val actual = domain.getDetailsForSupplier("user_a", "supplier_a")
-
+        val actual = domain.getDetailsForSupplier(userId, supplierId)
 
         // Assert
         // Assert that this returns supplier details.
-        assertEquals(expected, actual)
+        assertEquals(supplierDetails, actual)
 
 
     }
