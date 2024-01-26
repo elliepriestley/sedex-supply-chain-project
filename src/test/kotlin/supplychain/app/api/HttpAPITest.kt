@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import supplychain.app.domain.Domain
+import supplychain.app.repo.Supplier
 import supplychain.app.repo.SupplyChain
 import supplychain.app.repo.SupplyChainRepoInterface
 import supplychain.app.repo.UserRepoInterface
@@ -21,19 +22,23 @@ class HttpAPITest {
     fun `User can request specific supplier's details`() {
         // Arrange
         val supplierId = "supplier_a"
-        val expectedSupplierDetails = mapOf("name" to "Appleton Farm")
+        val orgName = "org_a"
+        val supplier = Supplier("Appleton Farm", "Warrington", "apples")
+        val mockSupplyChain = SupplyChain("org_a", listOf(mapOf(supplierId to supplier)))
+
+
         val mockUserRepo = object : UserRepoInterface {
             override fun fetchCompanyThatUserBelongsTo(userID: String): String {
-                return "org_a"
+                return orgName
             }
         }
 
         val mockSupplyChainRepo = object : SupplyChainRepoInterface {
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
-                return SupplyChain(companyID, listOf(supplierId))
+                return mockSupplyChain
             }
-            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
-                return expectedSupplierDetails
+            override fun fetchSupplierDetailsBySupplierId(supplyChain: SupplyChain, supplierId: String): Supplier {
+                return supplier
             }
         }
 
@@ -44,27 +49,33 @@ class HttpAPITest {
         val request = Request(GET, "/suppliers?id=${supplierId}")
 
         // Assert
-        val expectedResponse = mapOf(supplierId to expectedSupplierDetails)
+        val expected = "{supplier_a=Supplier(name=Appleton Farm, location=Warrington, produce=apples)}"
+
         assertThat(testApp(request), hasStatus(OK)
-            .and(hasBody(expectedResponse.toString())))
+            .and(hasBody(expected)))
     }
 
     @Test
     fun `User cannot access supplier details when supplier is not in the user's org's supply chain`() {
         // Arrange
         val requestedSupplierId = "supplier_z"
+        val supplierDetails = Supplier("fake name", "fake location", "fake produce")
+
+
+
+
         val mockUserRepo = object: UserRepoInterface {
             override fun fetchCompanyThatUserBelongsTo(userID: String): String {
                 return "organisation_b"
             }
         }
         val mockSupplyChainRepo = object: SupplyChainRepoInterface {
-            override fun fetchSupplierDetailsBySupplierId(supplierId: String): Map<String, String> {
-                return mapOf("name" to "fake_name")
+            override fun fetchSupplierDetailsBySupplierId(supplyChain: SupplyChain, supplierId: String): Supplier {
+                return supplierDetails
             }
 
             override fun fetchSupplyChainForCompany(companyID: String): SupplyChain {
-                return SupplyChain(companyID, listOf("supplier_b"))
+                return SupplyChain(companyID, listOf(mapOf("supplier_b" to supplierDetails)))
             }
         }
         val domain = Domain(mockUserRepo, mockSupplyChainRepo)
